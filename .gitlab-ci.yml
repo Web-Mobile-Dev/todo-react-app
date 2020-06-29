@@ -7,7 +7,8 @@ cache:
     paths: 
         - build/
     
-build: 
+build:
+    image: node:8
     stage: build
     script: 
         - npm i
