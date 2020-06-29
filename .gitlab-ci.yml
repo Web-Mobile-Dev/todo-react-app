@@ -3,6 +3,9 @@ stages:
     - test
     - run
     
+before_script:
+    - cd ToDoProject
+    
 cache: 
     paths: 
         - build/
