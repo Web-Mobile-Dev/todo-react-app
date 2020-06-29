@@ -1,16 +1,24 @@
 stages: 
     - build 
     - test
+    - run
+    
+cache: 
+    paths: 
+        - build/
     
 build: 
     stage: build
     script: 
-        - echo "Building"
-        - mkdir build 
-        - touch build/info.txt
+        - npm i
+        - npm run build
         
 test: 
     stage: test
     script: 
-        - echo "Testing" 
-        - test -f "build/info.txt"
+        - npm run test
+        
+run: 
+    stage: run
+    script: 
+        - serve -s build
