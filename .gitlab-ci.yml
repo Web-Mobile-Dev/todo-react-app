@@ -2,16 +2,17 @@ stages:
     - build 
     - test
     - run
-    
+
+image: node:latest
+
 before_script:
     - cd ToDoProject
     
 cache: 
     paths: 
         - build/
-    
+
 build:
-    image: node:8
     stage: build
     script: 
         - npm i
