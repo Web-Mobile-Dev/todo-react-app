@@ -30,4 +30,4 @@ deploy:
     artifacts:
         name: "todo-app"
         paths:
-        - build/*
+        - ToDoProject/build/*
