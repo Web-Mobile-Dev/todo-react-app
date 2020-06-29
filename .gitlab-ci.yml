@@ -1,7 +1,7 @@
 stages: 
     - build 
     - test
-    - run
+    - deploy
 
 image: node:latest
 
@@ -23,9 +23,11 @@ test:
     script: 
         - npm run test
         
-run: 
-    stage: run
-    script: 
-        - npm run build
-        - npm install -g serve
-        - serve -s build
+deploy:
+    stage: deploy
+    script:
+    - echo "Deploy app"
+    artifacts:
+        name: "todo-app"
+        paths:
+        - build/*
