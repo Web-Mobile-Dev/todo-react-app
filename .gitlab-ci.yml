@@ -1,7 +1,9 @@
 stages: 
     - build 
     - test
-    - deploy
+    - deploy_production
+    - deploy_staging
+    - deploy_dev
 
 image: node:latest
 
@@ -27,8 +29,8 @@ test:
     only:
         - merge_requests
         
-deploy:
-    stage: deploy
+deploy_production:
+    stage: deploy_production
     script:
     - npm run build
     artifacts:
@@ -37,3 +39,28 @@ deploy:
         - ToDoProject/build/*
     only:
         - merge_requests
+        - master
+        
+deploy_staging:
+    stage: deploy_staging
+    script:
+    - npm run build
+    artifacts:
+        name: "todo-app"
+        paths:
+        - ToDoProject/build/*
+    only:
+        - merge_requests
+        - staging
+        
+deploy_dev:
+    stage: deploy_dev
+    script:
+    - npm run build
+    artifacts:
+        name: "todo-app"
+        paths:
+        - ToDoProject/build/*
+    only:
+        - merge_requests
+        - development
