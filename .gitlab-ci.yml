@@ -1,7 +1,9 @@
 stages: 
     - build 
     - test
-    - deploy
+    - deploy_production
+    - deploy_staging
+    - deploy_dev
 
 image: node:latest
 
@@ -17,17 +19,45 @@ build:
     stage: build
     script: 
         - npm run build
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
 test: 
     stage: test
     script: 
         - npm run test
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
-deploy:
-    stage: deploy
+deploy_production:
+    stage: deploy_production
     script:
     - npm run build
     artifacts:
         name: "todo-app"
         paths:
         - ToDoProject/build/*
+    rules:
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+        
+deploy_staging:
+    stage: deploy_staging
+    script:
+    - npm run build
+    artifacts:
+        name: "todo-app"
+        paths:
+        - ToDoProject/build/*
+    rules:
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
+    
+deploy_dev:
+    stage: deploy_dev
+    script:
+    - npm run build
+    artifacts:
+        name: "todo-app"
+        paths:
+        - ToDoProject/build/*
+    rules:
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "development"'
