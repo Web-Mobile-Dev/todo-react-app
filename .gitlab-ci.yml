@@ -38,8 +38,7 @@ deploy_production:
         paths:
         - ToDoProject/build/*
     rules:
-        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-        - if: $CI_COMMIT_BRANCH == "master"
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
         
 deploy_staging:
     stage: deploy_staging
@@ -50,8 +49,7 @@ deploy_staging:
         paths:
         - ToDoProject/build/*
     rules:
-        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-        - if: $CI_COMMIT_BRANCH == "staging"
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
     
 deploy_dev:
     stage: deploy_dev
@@ -62,5 +60,4 @@ deploy_dev:
         paths:
         - ToDoProject/build/*
     rules:
-        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-        - if: $CI_COMMIT_BRANCH == "development"
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "development"'
