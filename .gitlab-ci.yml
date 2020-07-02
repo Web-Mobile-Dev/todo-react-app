@@ -19,15 +19,15 @@ build:
     stage: build
     script: 
         - npm run build
-    only:
-        - merge_requests
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
 test: 
     stage: test
     script: 
         - npm run test
-    only:
-        - merge_requests
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
 deploy_production:
     stage: deploy_production
@@ -37,10 +37,9 @@ deploy_production:
         name: "todo-app"
         paths:
         - ToDoProject/build/*
-    only:
-        - merge_requests
-        refs:
-            - master
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+        - if: $CI_COMMIT_BRANCH == "master"
         
 deploy_staging:
     stage: deploy_staging
@@ -50,11 +49,10 @@ deploy_staging:
         name: "todo-app"
         paths:
         - ToDoProject/build/*
-    only:
-        - merge_requests
-        refs:
-            - staging
-        
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+        - if: $CI_COMMIT_BRANCH == "staging"
+    
 deploy_dev:
     stage: deploy_dev
     script:
@@ -63,7 +61,6 @@ deploy_dev:
         name: "todo-app"
         paths:
         - ToDoProject/build/*
-    only:
-        - merge_requests
-        refs:
-            - development
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+        - if: $CI_COMMIT_BRANCH == "development"
