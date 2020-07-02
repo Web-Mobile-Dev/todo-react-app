@@ -38,8 +38,8 @@ deploy_production:
         paths:
         - ToDoProject/build/*
     only:
-        - merge_requests
         - master
+        - merge_requests
         
 deploy_staging:
     stage: deploy_staging
@@ -50,8 +50,8 @@ deploy_staging:
         paths:
         - ToDoProject/build/*
     only:
-        - merge_requests
         - staging
+        - merge_requests
         
 deploy_dev:
     stage: deploy_dev
@@ -62,5 +62,5 @@ deploy_dev:
         paths:
         - ToDoProject/build/*
     only:
-        - merge_requests
         - development
+        - merge_requests
