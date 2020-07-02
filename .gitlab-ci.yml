@@ -17,11 +17,15 @@ build:
     stage: build
     script: 
         - npm run build
+    only:
+        - merge_requests
         
 test: 
     stage: test
     script: 
         - npm run test
+    only:
+        - merge_requests
         
 deploy:
     stage: deploy
@@ -31,3 +35,5 @@ deploy:
         name: "todo-app"
         paths:
         - ToDoProject/build/*
+    only:
+        - merge_requests
