@@ -24,7 +24,7 @@ build:
         - ToDoProject/build/*
 
 pages:
-  image: node:latest
+  image: alpine:latest
   dependencies: 
     - build
   script:
