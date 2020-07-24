@@ -20,8 +20,6 @@ build:
     stage: build
     script: 
         - npm run build
-    rules:
-        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 pages:
   image: node:latest
