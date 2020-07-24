@@ -41,6 +41,8 @@ deploy_production:
     script:
     - pip install awscli
     - aws s3 cp ./ToDoProject/build/ s3://todo-app-create-react-app/ --recursive
+    rules:
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
         
 deploy_staging:
     stage: deploy_staging
