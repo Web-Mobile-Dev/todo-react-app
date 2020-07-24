@@ -26,7 +26,8 @@ build:
         
 test: 
     stage: test
-    script: 
+    script:
+        - cd ToDoProject
         - npm run test
     rules:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
