@@ -24,14 +24,17 @@ build:
         - ToDoProject/build/*
 
 pages:
-  image: alpine:latest
-  dependencies: 
-    - build
-  script:
-      - mkdir -p ./public
-      - cp -r ./ToDoProject/build/ ./public/
-  except:
-    - master
+    image: alpine:latest
+    dependencies: 
+        - build
+    script:
+        - mkdir -p ./public
+        - cp -r ./ToDoProject/build/ ./public/
+    artifacts: 
+        paths:
+            - public
+    except:
+        - master
         
 test: 
     stage: test
