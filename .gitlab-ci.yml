@@ -4,7 +4,6 @@ stages:
     - deploy_production
     - deploy_staging
     - deploy_dev
-    - pages
 
 image: node:latest
     
@@ -22,19 +21,6 @@ build:
         name: "todo-app"
         paths:
         - ToDoProject/build/*
-
-pages:
-    image: alpine:latest
-    dependencies: 
-        - build
-    script:
-        - mkdir -p ./public
-        - cp -r ./ToDoProject/build/. ./public/
-    artifacts: 
-        paths:
-            - public
-    except:
-        - master
         
 test: 
     stage: test
@@ -54,24 +40,14 @@ deploy_production:
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
         
-deploy_staging:
+pages:
     stage: deploy_staging
+    image: alpine:latest
+    dependencies: 
+        - build
     script:
-    - npm run build
-    artifacts:
-        name: "todo-app"
+        - mkdir -p ./public
+        - cp -r ./ToDoProject/build/. ./public/
+    artifacts: 
         paths:
-        - ToDoProject/build/*
-    rules:
-        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
-    
-deploy_dev:
-    stage: deploy_dev
-    script:
-    - npm run build
-    artifacts:
-        name: "todo-app"
-        paths:
-        - ToDoProject/build/*
-    rules:
-        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "development"'
+            - public
