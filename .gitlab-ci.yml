@@ -24,6 +24,8 @@ build:
         
 test: 
     stage: test
+    dependencies: 
+    - build
     script: 
         - cd ToDoProject
         - npm i
@@ -33,14 +35,12 @@ test:
         
 deploy_production:
     stage: deploy_production
+    dependencies: 
+    - build
+    image: python:latest
     script:
-    - npm run build
-    artifacts:
-        name: "todo-app"
-        paths:
-        - ToDoProject/build/*
-    rules:
-        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+    - pip install awscli
+    - aws s3 cp ./ToDoProject/build/ s3://todo-app-create-react-app/ --recursive
         
 deploy_staging:
     stage: deploy_staging
@@ -52,16 +52,3 @@ deploy_staging:
         - ToDoProject/build/*
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
-
-variables:
-  AWS_ACCESS_KEY_ID: "AKIASBYVMTEKSV2KZCPG"
-  AWS_SECRET_ACCESS_KEY: "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"
-
-deploy_dev:
-    stage: deploy_dev
-    dependencies: 
-    - build
-    image: python:latest
-    script:
-    - pip install awscli
-    - aws s3 cp ./ToDoProject/build/ s3://todo-app-create-react-app/ --recursive
