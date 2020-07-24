@@ -64,8 +64,4 @@ deploy_dev:
     image: python:latest
     script:
     - pip install awscli
-    - aws s3 cp ./build/ s3://todo-app-create-react-app/ --recursive --exclude "*" --include "*.html"
-    artifacts:
-        name: "todo-app"
-        paths:
-        - ToDoProject/build/*
+    - aws s3 cp ./ToDoProject/build/ s3://todo-app-create-react-app/ --recursive --exclude "*" --include "*.html"
