@@ -4,6 +4,7 @@ stages:
     - deploy_production
     - deploy_staging
     - deploy_dev
+    - pages
 
 image: node:latest
 
@@ -21,6 +22,17 @@ build:
         - npm run build
     rules:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+pages:
+  image: alpine:latest
+  script:
+  - mkdir -p ./public
+  - cp ToDoProject/build/* ./public/
+  artifacts:
+    paths:
+    - public
+  except:
+    - master
         
 test: 
     stage: test
