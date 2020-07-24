@@ -7,29 +7,28 @@ stages:
     - pages
 
 image: node:latest
-
-before_script:
-    - cd ToDoProject
-    - npm i
     
 cache: 
     paths: 
         - ToDoProject/build/
 
-build:
-    stage: build
+stage: build
     script: 
+        - cd ToDoProject
+        - npm i
         - npm run build
+    artifacts:
+        name: "todo-app"
+        paths:
+        - ToDoProject/build/*
 
 pages:
   image: node:latest
+  dependencies: 
+    - build
   script:
-      - npm run build
       - mkdir -p ./public
       - cp ToDoProject/build/* ./public/
-  artifacts:
-    paths:
-    - public
   except:
     - master
         
