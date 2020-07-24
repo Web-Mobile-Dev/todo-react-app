@@ -23,8 +23,6 @@ build:
         name: "todo-app"
         paths:
         - ToDoProject/build/*
-    rules:
-        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
 test: 
     stage: test
@@ -71,5 +69,3 @@ deploy_dev:
         name: "todo-app"
         paths:
         - ToDoProject/build/*
-    rules:
-        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "development"'
