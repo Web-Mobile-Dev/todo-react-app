@@ -3,7 +3,6 @@ stages:
     - test
     - deploy_production
     - deploy_staging
-    - deploy_dev
 
 image: node:latest
 
@@ -21,6 +20,8 @@ build:
         name: "todo-app"
         paths:
         - ToDoProject/build/*
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
 test: 
     stage: test
