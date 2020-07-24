@@ -24,7 +24,7 @@ build:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 pages:
-  image: alpine:latest
+  image: node:latest
   script:
   - mkdir -p ./public
   - cp ToDoProject/build/* ./public/
