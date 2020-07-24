@@ -19,6 +19,10 @@ build:
     stage: build
     script: 
         - npm run build
+    artifacts:
+        name: "todo-app"
+        paths:
+        - ToDoProject/build/*
     rules:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
@@ -50,11 +54,19 @@ deploy_staging:
         - ToDoProject/build/*
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
-    
+
+variables:
+  AWS_ACCESS_KEY_ID: "AKIASBYVMTEK4QR6WHAJ"
+  AWS_SECRET_ACCESS_KEY: “216upSNmzw89oz/ppRa5kEKCBzTEBoNk6pmqqVF3”
+
 deploy_dev:
     stage: deploy_dev
+    dependencies: 
+    - build
+    image: python:latest
     script:
-    - npm run build
+    - pip install awscli
+    - aws s3 cp ./build/ s3://todo-app-create-react-app/ --recursive --exclude "*" --include "*.html"
     artifacts:
         name: "todo-app"
         paths:
