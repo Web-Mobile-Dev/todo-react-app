@@ -24,8 +24,9 @@ build:
 pages:
   image: node:latest
   script:
-  - mkdir -p ./public
-  - cp ToDoProject/build/* ./public/
+      - npm run build
+      - mkdir -p ./public
+      - cp ToDoProject/build/* ./public/
   artifacts:
     paths:
     - public
