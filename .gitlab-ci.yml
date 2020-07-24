@@ -28,6 +28,7 @@ test:
     stage: test
     script:
         - cd ToDoProject
+        - npm i
         - npm run test
     dependencies: 
         - build
