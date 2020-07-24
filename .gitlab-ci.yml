@@ -54,8 +54,8 @@ deploy_staging:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
 
 variables:
-  AWS_ACCESS_KEY_ID: "AKIASBYVMTEK4QR6WHAJ"
-  AWS_SECRET_ACCESS_KEY: “216upSNmzw89oz/ppRa5kEKCBzTEBoNk6pmqqVF3”
+  AWS_ACCESS_KEY_ID: "AKIASBYVMTEKSV2KZCPG"
+  AWS_SECRET_ACCESS_KEY: "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"
 
 deploy_dev:
     stage: deploy_dev
