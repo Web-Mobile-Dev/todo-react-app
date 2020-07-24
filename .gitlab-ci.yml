@@ -7,10 +7,6 @@ stages:
 
 image: node:latest
 
-before_script:
-    - cd ToDoProject
-    - npm i
-    
 cache: 
     paths: 
         - ToDoProject/build/
@@ -18,6 +14,8 @@ cache:
 build:
     stage: build
     script: 
+        - cd ToDoProject
+        - npm i
         - npm run build
     artifacts:
         name: "todo-app"
@@ -27,6 +25,8 @@ build:
 test: 
     stage: test
     script: 
+        - cd ToDoProject
+        - npm i
         - npm run test
     rules:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
