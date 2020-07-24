@@ -12,7 +12,8 @@ cache:
     paths: 
         - ToDoProject/build/
 
-stage: build
+build:
+    stage: build
     script: 
         - cd ToDoProject
         - npm i
