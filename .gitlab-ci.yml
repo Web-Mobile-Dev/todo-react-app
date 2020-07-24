@@ -38,6 +38,7 @@ test:
         
 deploy_production:
     stage: deploy_production
+    environment: production
     dependencies: 
     - build
     image: python:latest
@@ -50,6 +51,7 @@ deploy_production:
 pages:
     stage: deploy_staging
     image: alpine:latest
+    environment: staging
     dependencies: 
         - build
     script:
