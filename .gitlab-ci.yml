@@ -3,10 +3,9 @@ stages:
     - test
     - deploy_production
     - deploy_staging
-    - deploy_dev
 
 image: node:latest
-    
+
 cache: 
     paths: 
         - ToDoProject/build/
@@ -26,7 +25,9 @@ build:
         
 test: 
     stage: test
-    script:
+    dependencies: 
+    - build
+    script: 
         - cd ToDoProject
         - npm i
         - npm run test
@@ -37,12 +38,12 @@ test:
         
 deploy_production:
     stage: deploy_production
+    dependencies: 
+    - build
+    image: python:latest
     script:
-    - npm run build
-    artifacts:
-        name: "todo-app"
-        paths:
-        - ToDoProject/build/*
+    - pip install awscli
+    - aws s3 cp ./ToDoProject/build/ s3://todo-app-create-react-app/ --recursive
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
         
