@@ -30,8 +30,6 @@ test:
         - cd ToDoProject
         - npm i
         - npm run test
-    rules:
-        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
 deploy_production:
     stage: deploy_production
