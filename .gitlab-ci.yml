@@ -29,7 +29,7 @@ pages:
     - build
   script:
       - mkdir -p ./public
-      - cp ToDoProject/build/* ./public/
+      - cp ./ToDoProject/build/ ./public/
   except:
     - master
         
