@@ -3,14 +3,9 @@ stages:
     - test
     - deploy_production
     - deploy_staging
-    - deploy_dev
 
 image: node:latest
 
-before_script:
-    - cd ToDoProject
-    - npm i
-    
 cache: 
     paths: 
         - ToDoProject/build/
@@ -18,46 +13,50 @@ cache:
 build:
     stage: build
     script: 
+        - cd ToDoProject
+        - npm i
         - npm run build
+    artifacts:
+        name: "todo-app"
+        paths:
+        - ToDoProject/build/*
     rules:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
 test: 
     stage: test
+    dependencies: 
+    - build
     script: 
+        - cd ToDoProject
+        - npm i
         - npm run test
+    dependencies: 
+        - build
     rules:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
 deploy_production:
     stage: deploy_production
+    dependencies: 
+    - build
+    image: python:latest
     script:
-    - npm run build
-    artifacts:
-        name: "todo-app"
-        paths:
-        - ToDoProject/build/*
+    - pip install awscli
+    - aws s3 cp ./ToDoProject/build/ s3://todo-app-create-react-app/ --recursive
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
         
-deploy_staging:
+pages:
     stage: deploy_staging
+    image: alpine:latest
+    dependencies: 
+        - build
     script:
-    - npm run build
-    artifacts:
-        name: "todo-app"
+        - mkdir -p ./public
+        - cp -r ./ToDoProject/build/. ./public/
+    artifacts: 
         paths:
-        - ToDoProject/build/*
+            - public
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
-    
-deploy_dev:
-    stage: deploy_dev
-    script:
-    - npm run build
-    artifacts:
-        name: "todo-app"
-        paths:
-        - ToDoProject/build/*
-    rules:
-        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "development"'
