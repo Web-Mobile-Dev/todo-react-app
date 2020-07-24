@@ -31,6 +31,8 @@ test:
         - cd ToDoProject
         - npm i
         - npm run test
+    dependencies: 
+        - build
     rules:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
@@ -45,13 +47,16 @@ deploy_production:
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
         
-deploy_staging:
+pages:
     stage: deploy_staging
+    image: alpine:latest
+    dependencies: 
+        - build
     script:
-    - npm run build
-    artifacts:
-        name: "todo-app"
+        - mkdir -p ./public
+        - cp -r ./ToDoProject/build/. ./public/
+    artifacts: 
         paths:
-        - ToDoProject/build/*
+            - public
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'

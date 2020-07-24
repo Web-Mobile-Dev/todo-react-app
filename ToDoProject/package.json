@@ -1,6 +1,7 @@
 {
   "name": "build-your-first-production-quality-app",
   "version": "0.1.0",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "prop-types": "15.6.2",
