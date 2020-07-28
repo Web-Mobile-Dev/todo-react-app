@@ -36,22 +36,27 @@ test:
         
 deploy_production:
     stage: deploy_production
+    environment: production
     dependencies: 
     - build
     image: python:latest
     script:
     - pip install awscli
-    - aws s3 cp ./ToDoProject/build/ s3://todo-app-create-react-app/ --recursive
+    - aws s3 cp ./ToDoProject/build/ s3://todo-react-app/ --recursive
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
         
-deploy_staging:
+pages:
     stage: deploy_staging
+    image: alpine:latest
+    environment: staging
+    dependencies: 
+        - build
     script:
-    - npm run build
-    artifacts:
-        name: "todo-app"
+        - mkdir -p ./public
+        - cp -r ./ToDoProject/build/. ./public/
+    artifacts: 
         paths:
-        - ToDoProject/build/*
+            - public
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
