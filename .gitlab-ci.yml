@@ -39,7 +39,7 @@ test:
         
 pages:
     stage: deploy
-    environment: production
+    environment: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
     image: alpine:latest
     dependencies: 
         - build
