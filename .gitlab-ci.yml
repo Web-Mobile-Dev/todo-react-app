@@ -1,8 +1,7 @@
 stages: 
     - build 
     - test
-    - deploy_production
-    - deploy_staging
+    - deploy
     
 image: node:latest
 
@@ -39,31 +38,17 @@ test:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
 pages:
-    stage: deploy_production
+    stage: deploy
     environment: production
     image: alpine:latest
     dependencies: 
         - build
     script:
-        - mkdir -p ./public/$CI_PRODUCTION_ID
-        - cp -r ./ToDoProject/build/. ./public/$CI_PRODUCTION_ID
-    artifacts: 
-        paths:
-            - public
-    rules:
-        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
-        
-pages:
-    stage: deploy_staging
-    environment: staging
-    image: alpine:latest
-    dependencies: 
-        - build
-    script:
-        - mkdir -p ./public/$CI_STAGING_ID
-        - cp -r ./ToDoProject/build/. ./public/$CI_STAGING_ID
+        - mkdir -p ./public/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+        - cp -r ./ToDoProject/build/. ./public/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
     artifacts: 
         paths:
             - public
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
