@@ -3,6 +3,8 @@ stages:
     - test
     - deploy_production
     - deploy_staging
+    - publish_staging
+    - publish_production
 
 image: node:latest
 
@@ -60,3 +62,27 @@ pages:
             - public
     rules:
         - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
+
+pages: 
+    stage: publish_staging
+    image: alpine:latest
+    dependencies: 
+        - build
+    script:
+        - mkdir -p ./public/$CI_STAGING_ID
+        - cp -r ./ToDoProject/build/. ./public/$CI_STAGING_ID
+    artifacts: 
+        paths:
+            - public
+
+pages: 
+    stage: publish_production
+    image: alpine:latest
+    dependencies: 
+        - build
+    script:
+        - mkdir -p ./public/$CI_PRODUCTION_ID
+        - cp -r ./ToDoProject/build/. ./public/$CI_PRODUCTION_ID
+    artifacts: 
+        paths:
+            - public
