@@ -3,9 +3,7 @@ stages:
     - test
     - deploy_production
     - deploy_staging
-    - publish_staging
-    - publish_production
-
+    
 image: node:latest
 
 variables:
@@ -40,47 +38,9 @@ test:
     rules:
         - if: $CI_PIPELINE_SOURCE == "merge_request_event"
         
-deploy_production:
+pages:
     stage: deploy_production
     environment: production
-    dependencies: 
-    - build
-    image: python:latest
-    script:
-    - pip install awscli
-    - aws s3 cp ./ToDoProject/build/ s3://todo-react-app/ --recursive
-    rules:
-        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
-        
-pages:
-    stage: deploy_staging
-    image: alpine:latest
-    environment: staging
-    dependencies: 
-        - build
-    script:
-        - mkdir -p ./public
-        - cp -r ./ToDoProject/build/. ./public/
-    artifacts: 
-        paths:
-            - public
-    rules:
-        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
-
-pages: 
-    stage: publish_staging
-    image: alpine:latest
-    dependencies: 
-        - build
-    script:
-        - mkdir -p ./public/$CI_STAGING_ID
-        - cp -r ./ToDoProject/build/. ./public/$CI_STAGING_ID
-    artifacts: 
-        paths:
-            - public
-
-pages: 
-    stage: publish_production
     image: alpine:latest
     dependencies: 
         - build
@@ -90,3 +50,20 @@ pages:
     artifacts: 
         paths:
             - public
+    rules:
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+        
+pages:
+    stage: deploy_staging
+    environment: staging
+    image: alpine:latest
+    dependencies: 
+        - build
+    script:
+        - mkdir -p ./public/$CI_STAGING_ID
+        - cp -r ./ToDoProject/build/. ./public/$CI_STAGING_ID
+    artifacts: 
+        paths:
+            - public
+    rules:
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"'
