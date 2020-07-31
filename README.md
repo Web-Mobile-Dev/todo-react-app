@@ -43,16 +43,16 @@ Note: the development branch can be protected by default:
 5. The completed pushing policy should look like this: <br/>
 ![5.png](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fccdccaf0-8422-4948-a92b-3a0181249a0c%2FUntitled.png?table=block&id=75c2d1c7-a833-4238-a36c-8967d39520de&width=1700&cache=v2)
 
-6. In the left-bar of GitLab, navigate to **Settings** → **General**
+6. In the left-bar of GitLab, navigate to **Settings** → **General**: <br/>
 ![6_1.png](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fcbb09868-0cdc-4830-bd73-860e96e88d46%2FUntitled.png?table=block&id=72a70f7b-ecec-454b-a1a8-c7c8f974b7b5&width=480&cache=v2)
 
-7. Open **Merge requests** tab and uncheck **Enable 'Delete source branch' option by default** option in **Merge options** section
+7. Open **Merge requests** tab and uncheck **Enable 'Delete source branch' option by default** option in **Merge options** section: <br/>
 ![7_1.png](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff66dc687-6247-4135-add3-e665dda84026%2FUntitled.png?table=block&id=82ce7843-c284-4d49-a0ce-088d06e62eb8&width=1250&cache=v2)
 
 8. Scroll to **Merge checks** section and check **Pipelines must succeed** option <br/>
 ![6.png](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd60b6986-ac6a-4f53-8d9f-741e0a879b1b%2FUntitled.png?table=block&id=8908a7d4-e668-4f6c-882a-c53d41143305&width=1210&cache=v2)
 
-9. Press **Save changes** button at the end of the section
+9. Press **Save changes** button at the end of the section: <br/>
 ![9_1.png](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fdc2f2723-145f-47b8-84a5-09b004bdbaef%2FUntitled.png?table=block&id=a67cd52e-3acd-4c0f-956c-0461def96726&width=2690&cache=v2)
 
 
