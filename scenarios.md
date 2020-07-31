@@ -39,10 +39,6 @@ This document describes a scenario of making changes to the product and consists
 
     ![3.png](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F596e3c0e-b9f9-4fff-89af-c609f987d9e1%2FUntitled.png)
 
-    ```jsx
-
-    ```
-
     7. Save changes.
 
 ### Running the app on dev environment
