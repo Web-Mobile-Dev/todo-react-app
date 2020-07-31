@@ -16,7 +16,7 @@ export const TodoItem = props => {
                 />
                 {props.name}
             </label> 
-            <a href="#" title="Remove Todo" onClick={handleRemove}>x</a>    
+            <button title="Remove Todo" onClick={handleRemove}>x</button>
             </li>
     )
 }
