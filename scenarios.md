@@ -57,9 +57,7 @@ This document describes a scenario of making changes to the product and consists
 
 Note: 
 
-cd ..
-
-cd cd env-dev/
+cd ../env-dev/
 
 1. Run the command to mount vagrant
 
