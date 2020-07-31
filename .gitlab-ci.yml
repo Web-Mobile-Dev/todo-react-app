@@ -5,10 +5,6 @@ stages:
     
 image: node:latest
 
-variables:
-  CI_STAGING_ID: "staging"
-  CI_PRODUCTION_ID: "production"
-
 cache: 
     paths: 
         - ToDoProject/build/
